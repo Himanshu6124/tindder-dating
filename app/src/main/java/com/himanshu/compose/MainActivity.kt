@@ -1,4 +1,4 @@
-package com.tinder.compose
+package com.himanshu.compose
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -59,7 +59,6 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.himanshu.compose.R
 import kotlinx.coroutines.delay
 import kotlin.math.roundToInt
 

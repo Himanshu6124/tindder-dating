@@ -1,4 +1,4 @@
-package com.tinder.compose
+package com.himanshu.compose
 
 import org.junit.Test
 

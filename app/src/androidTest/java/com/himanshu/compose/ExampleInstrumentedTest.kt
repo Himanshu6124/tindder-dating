@@ -1,4 +1,4 @@
-package com.tinder.compose
+package com.himanshu.compose
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
