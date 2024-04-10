@@ -59,6 +59,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.himanshu.compose.ui.Destinations
 import kotlinx.coroutines.delay
 import kotlin.math.roundToInt
 
@@ -73,10 +74,7 @@ class MainActivity : ComponentActivity() {
 //                val bottomBarOffsetHeightPx = remember { mutableStateOf(0f) }
             val buttonsVisible = remember { mutableStateOf(true) }
 
-            Scaffold(
-                bottomBar = {
-                    BottomBar(navController, buttonsVisible, Modifier)
-                }) { paddingValues ->
+            Scaffold(bottomBar = { BottomBar(navController, buttonsVisible, Modifier) }) { paddingValues ->
                 Box(
                     modifier = Modifier.padding(paddingValues)
                 ) {
@@ -226,7 +224,6 @@ fun FavouriteScreen() {
         )
     }
 }
-
 @Composable
 fun NotificationScreen() {
     Column(
@@ -244,33 +241,6 @@ fun NotificationScreen() {
         )
     }
 }
-
-
-sealed class Destinations(
-    val route: String,
-    val title: String? = null,
-    val icon: ImageVector? = null
-) {
-    data object HomeScreen : Destinations(
-        route = "home_screen",
-        title = "Home",
-        icon = Icons.Outlined.Home
-    )
-
-    data object Favourite : Destinations(
-        route = "favourite_screen",
-        title = "Favorite",
-        icon = Icons.Outlined.Favorite
-    )
-
-    data object Notification : Destinations(
-        route = "notification_screen",
-        title = "Notification",
-        icon = Icons.Outlined.Notifications
-    )
-
-}
-
 
 @Composable
 fun NavigationGraph(navController: NavHostController) {
@@ -291,9 +261,7 @@ fun NavigationGraph(navController: NavHostController) {
 fun BottomBar(
     navController: NavHostController, state: MutableState<Boolean>, modifier: Modifier = Modifier
 ) {
-    val screens = listOf(
-        Destinations.HomeScreen, Destinations.Favourite, Destinations.Notification
-    )
+    val screens = listOf(Destinations.HomeScreen, Destinations.Favourite, Destinations.Notification)
 
     NavigationBar(
         modifier = modifier,
