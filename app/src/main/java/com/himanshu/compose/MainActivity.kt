@@ -14,6 +14,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
@@ -51,6 +52,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalDensity
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavGraph.Companion.findStartDestination
@@ -67,22 +69,23 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            ShowBottomBar()
+        }
+    }
+}
 
 
-            val navController: NavHostController = rememberNavController()
-//                val bottomBarHeight = 56.dp
-//                val bottomBarOffsetHeightPx = remember { mutableStateOf(0f) }
-            val buttonsVisible = remember { mutableStateOf(true) }
+@Preview
+@Composable
+fun ShowBottomBar() {
+    val navController: NavHostController = rememberNavController()
+    val buttonsVisible = remember { mutableStateOf(true) }
 
-            Scaffold(bottomBar = { BottomBar(navController, buttonsVisible, Modifier) }) { paddingValues ->
-                Box(
-                    modifier = Modifier.padding(paddingValues)
-                ) {
-                    NavigationGraph(navController = navController)
-                }
-            }
-
-
+    Scaffold(bottomBar = { BottomBar(navController, buttonsVisible, Modifier) }) { paddingValues ->
+        Box(
+            modifier = Modifier.padding(paddingValues)
+        ) {
+            NavigationGraph(navController = navController)
         }
     }
 }
@@ -224,6 +227,7 @@ fun FavouriteScreen() {
         )
     }
 }
+
 @Composable
 fun NotificationScreen() {
     Column(
@@ -248,11 +252,17 @@ fun NavigationGraph(navController: NavHostController) {
         composable(Destinations.HomeScreen.route) {
             HomeScreen()
         }
+        composable(Destinations.SearchScreen.route) {
+            FavouriteScreen()
+        }
         composable(Destinations.Favourite.route) {
             FavouriteScreen()
         }
-        composable(Destinations.Notification.route) {
-            NotificationScreen()
+        composable(Destinations.Chat.route) {
+            FavouriteScreen()
+        }
+        composable(Destinations.Profile.route) {
+            FavouriteScreen()
         }
     }
 }
@@ -261,11 +271,17 @@ fun NavigationGraph(navController: NavHostController) {
 fun BottomBar(
     navController: NavHostController, state: MutableState<Boolean>, modifier: Modifier = Modifier
 ) {
-    val screens = listOf(Destinations.HomeScreen, Destinations.Favourite, Destinations.Notification)
+    val screens = listOf(
+        Destinations.HomeScreen,
+        Destinations.SearchScreen,
+        Destinations.Favourite,
+        Destinations.Chat,
+        Destinations.Profile
+    )
 
     NavigationBar(
         modifier = modifier,
-        containerColor = Color.LightGray,
+        containerColor = Color.White,
     ) {
         val navBackStackEntry by navController.currentBackStackEntryAsState()
         val currentRoute = navBackStackEntry?.destination?.route
@@ -273,11 +289,15 @@ fun BottomBar(
         screens.forEach { screen ->
 
             NavigationBarItem(
-                label = {
-                    Text(text = screen.title!!)
-                },
+
                 icon = {
-                    Icon(imageVector = screen.icon!!, contentDescription = "")
+                    Image(
+                        painter = painterResource(id = screen.icon!!),
+                        modifier = Modifier
+                            .fillMaxHeight(.4f)
+                            .height(15.dp),
+                        contentDescription = "null"
+                    )
                 },
                 selected = currentRoute == screen.route,
                 onClick = {
