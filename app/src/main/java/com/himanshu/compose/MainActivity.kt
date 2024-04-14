@@ -19,11 +19,6 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Favorite
-import androidx.compose.material.icons.outlined.Home
-import androidx.compose.material.icons.outlined.Notifications
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.NavigationBar
 import androidx.compose.material3.NavigationBarItem
@@ -45,7 +40,6 @@ import androidx.compose.ui.draw.paint
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.graphicsLayer
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.input.pointer.positionChange
 import androidx.compose.ui.layout.ContentScale
@@ -106,7 +100,7 @@ fun Card(modifier: Modifier) {
         modifier = modifier
             .background(Color.Black)
             .background(Color.LightGray)
-            .paint(painterResource(id = R.drawable.card_image), contentScale = ContentScale.Crop)
+            .paint(painterResource(id = R.drawable.ic_launcher_foreground), contentScale = ContentScale.Crop)
     ) {
         Row(
             horizontalArrangement = Arrangement.SpaceAround,
@@ -227,6 +221,58 @@ fun FavouriteScreen() {
         )
     }
 }
+@Composable
+fun ChatScreen() {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = Color.Magenta)
+            .wrapContentSize(Alignment.Center)
+    ) {
+        Text(
+            text = "Chat Screen",
+            style = MaterialTheme.typography.titleLarge,
+            color = Color.White,
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+            textAlign = TextAlign.Center,
+        )
+    }
+}
+
+@Composable
+fun ProfileScreen() {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = Color.Magenta)
+            .wrapContentSize(Alignment.Center)
+    ) {
+        Text(
+            text = "Profile Screen",
+            style = MaterialTheme.typography.titleLarge,
+            color = Color.White,
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+            textAlign = TextAlign.Center,
+        )
+    }
+}
+@Composable
+fun SearchScreen() {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(color = Color.Magenta)
+            .wrapContentSize(Alignment.Center)
+    ) {
+        Text(
+            text = "Search Screen",
+            style = MaterialTheme.typography.titleLarge,
+            color = Color.White,
+            modifier = Modifier.align(Alignment.CenterHorizontally),
+            textAlign = TextAlign.Center,
+        )
+    }
+}
 
 @Composable
 fun NotificationScreen() {
@@ -246,6 +292,7 @@ fun NotificationScreen() {
     }
 }
 
+ /*understood*/
 @Composable
 fun NavigationGraph(navController: NavHostController) {
     NavHost(navController, startDestination = Destinations.HomeScreen.route) {
@@ -253,16 +300,16 @@ fun NavigationGraph(navController: NavHostController) {
             HomeScreen()
         }
         composable(Destinations.SearchScreen.route) {
-            FavouriteScreen()
+            SearchScreen()
         }
         composable(Destinations.Favourite.route) {
             FavouriteScreen()
         }
         composable(Destinations.Chat.route) {
-            FavouriteScreen()
+            ChatScreen()
         }
         composable(Destinations.Profile.route) {
-            FavouriteScreen()
+            ProfileScreen()
         }
     }
 }
